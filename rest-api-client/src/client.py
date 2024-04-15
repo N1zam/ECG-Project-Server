@@ -51,7 +51,7 @@ if (__name__ == "__main__"):
         password = os.getenv("PASSWORD");
         url_api = os.getenv("URL");
     
-    filename = "Sensor.txt"
+    filename = "./result/Sensor.txt"
     data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password)
     
     if (data.getdata()):
