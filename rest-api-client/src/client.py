@@ -2,20 +2,25 @@ import requests, os, keyboard, json
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv, dotenv_values
 
-
-def fetch_data_from_api_server(api_url, user, password):    
-    try:
-        res = requests.get(
-            url = api_url,
-            auth= HTTPBasicAuth(user, password)
-        )
+class clientRestAPI:
+    def __init__(this, api_url, user, password):
+        this.api_url = api_url;
+        this.user = user;
+        this.password = password;
         
-        data = res.json()
-        return data
+    def __str__(this):
+        return this._fetch_data_from_api();
     
-    except requests.exceptions.RequestException as e:
-        print("Error fetching data", e)
-        return None;
+    def _fetch_data_from_api(this):
+        try:
+            res = requests.get(
+                url=this.api_url, auth=HTTPBasicAuth(this.user, this.password)
+            );
+            data = res.json();
+            return data;
+        except (requests.exceptions.RequestException, requests.ConnectTimeout) as e:
+            print("Error: ", e);
+            return None;
     
     
 if __name__ == "__main__":
@@ -31,7 +36,7 @@ if __name__ == "__main__":
         password = os.getenv("PASSWORD");
         url_api = os.getenv("URL");
         
-    data = fetch_data_from_api_server(f"{url_api}/sensor/sensorid/1", user, password);
+    data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password);
     
     if (data):
         for (item) in (data):
