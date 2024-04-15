@@ -8,8 +8,8 @@ class clientRestAPI:
         this.user = user;
         this.password = password;
         
-    def __str__(this):
-        return this._fetch_data_from_api();
+    def getdata(this):
+        return (this._fetch_data_from_api())
     
     def _fetch_data_from_api(this):
         try:
@@ -36,10 +36,10 @@ if __name__ == "__main__":
         password = os.getenv("PASSWORD");
         url_api = os.getenv("URL");
         
-    data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password);
+    data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password)
     
-    if (data):
-        for (item) in (data):
+    if (data.getdata()):
+        for (item) in (data.getdata()):
             print("ID\t\t : ", item["id"]);
             print("Sensor ID\t : ", item["sensorid"]);
             print("Value\t\t : ", item["value"]);
