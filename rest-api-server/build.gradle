@@ -7,7 +7,7 @@ plugins {
 group = 'org.ecgproject'
 version = '1.0.0'
 
-// java version
+// Java version 8
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -36,6 +36,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.github.cdimascio:dotenv-java:2.2.0")
     implementation("org.xerial:sqlite-jdbc:3.34.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.cdimascio:dotenv-java:2.2.0")
 }
 
