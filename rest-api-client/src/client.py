@@ -1,4 +1,5 @@
 import requests, os, keyboard, json
+from time import sleep
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv, dotenv_values
 
@@ -53,9 +54,7 @@ class File:
             
             
 
-def main():
-    os.system("cls") if (os.name == "nt") else os.system("clear");
-    
+def main():    
     user = os.getenv("USER");
     password = os.getenv("PASSWORD");
     url_api = os.getenv("URL");
@@ -68,7 +67,7 @@ def main():
     
     filesensor = "./result/Sensor.txt";
     filelogtime = "./result/logtime.txt";
-    data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password);
+    data = clientRestAPI(f"{url_api}/sensor/sensorid/4", user, password);
     
     if (data.getdata()):
         value = [];
@@ -94,5 +93,12 @@ def test():
         print(i);
     
 if (__name__ == "__main__"):
+    os.system("cls") if (os.name == "nt") else os.system("clear");
     # main();
-    test();
+    # test();
+    
+    while(True):
+        if(keyboard.is_pressed('q')): break;
+        main();
+        sleep(1);
+        
