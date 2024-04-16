@@ -22,23 +22,38 @@ class clientRestAPI:
             print("Error: ", e);
             return None;
         
-class SaveData:
-    def __init__(this, nameFile: str, value):
+class File:
+    def __init__(this, nameFile: str):
         this.namefile = nameFile;
-        this.value = value;
+        
+    def read(this):
         try:
-            with open(this.namefile, 'w') as file:
+            with open(this.namefile, "r", encoding="utf-8") as file:
+                data = [data.strip() for data in file.readlines()]
+                file.close();
+            return data;
+
+        
+        except Exception as e:
+            print("Error: ", e);
+    
+    def save(this, value):
+        try:
+            with open(this.namefile, "w", encoding="utf-8") as file:
                 if(isinstance(value, list)):
                     for i in value:
                         file.write(str(i)+"\n");
                 else:
-                    file.write(str(value));
+                    file.write(f"{value:.1f}\n");
                     
+                file.close();
+                
         except Exception as e:
             print("Error: ", e);
-    
-    
-if (__name__ == "__main__"):
+            
+            
+
+def main():
     os.system("cls") if (os.name == "nt") else os.system("clear");
     
     user = os.getenv("USER");
@@ -46,26 +61,38 @@ if (__name__ == "__main__"):
     url_api = os.getenv("URL");
 
     if(user == None or password == None):
-        load_dotenv()
+        load_dotenv();
         user = os.getenv("USER");
         password = os.getenv("PASSWORD");
         url_api = os.getenv("URL");
     
-    filename = "./result/Sensor.txt"
-    data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password)
+    filesensor = "./result/Sensor.txt";
+    filelogtime = "./result/logtime.txt";
+    data = clientRestAPI(f"{url_api}/sensor/sensorid/1", user, password);
     
     if (data.getdata()):
-        value = []
+        value = [];
         for (item) in (data.getdata()):
             value.append(item["value"]);
             print("ID\t\t : ", item["id"]);
             print("Sensor ID\t : ", item["sensorid"]);
             print("Value\t\t : ", item["value"]);
             print("Create Date\t : ", item["createDate"]);
-            print("Update Date\t : ", item["updateDate"])
+            print("Update Date\t : ", item["updateDate"]);
             print();
                         
-        SaveData(filename, value)
+        File(filesensor).save(value);
 
     else:
-        print("Failed to fetch data from API server")
+        print("Failed to fetch data from API server");
+        
+
+def test():
+    filename = "./result/Sensor.txt";
+    data = File(filename).read();
+    for i in data:
+        print(i);
+    
+if (__name__ == "__main__"):
+    # main();
+    test();
