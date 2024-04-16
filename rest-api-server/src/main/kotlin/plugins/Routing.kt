@@ -3,23 +3,10 @@ package org.ecgproject.plugins
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
-
-fun Application.configureRouting() {
-    val dbHandler = DatabaseHandler()
-    val apiHandler = APIHandler(dbHandler)
-
+val dbHandler = DatabaseHandler()
+val apiHandler = APIHandler(dbHandler)
+fun Application.configureRoutingGet() {
     routing {
-        post("/") {
-            apiHandler.testPostAPI(call)
-        }
-        post("/sensor") {
-            apiHandler.saveData(call)
-        }
-
-        put("/sensor/id/{id}") {
-            apiHandler.updateData(call)
-        }
-
         authenticate("security-ecg") {
             // testing program
             get("/") {
@@ -41,6 +28,21 @@ fun Application.configureRouting() {
             delete("/sensor/sensorid/{sensorid}") {
                 apiHandler.deleteDataBySensorId(call)
             }
+        }
+    }
+}
+
+fun Application.configureRoutingPost() {
+    routing {
+        post("/") {
+            apiHandler.testPostAPI(call)
+        }
+        post("/sensor") {
+            apiHandler.saveData(call)
+        }
+
+        put("/sensor/id/{id}") {
+            apiHandler.updateData(call)
         }
     }
 }

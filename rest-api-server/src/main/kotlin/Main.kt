@@ -6,12 +6,33 @@ import io.ktor.server.netty.*
 import org.ecgproject.plugins.*
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module)
-        .start(wait = true)
+    val serverThread1 = Thread(ServerRunnable1("ServerRunnable1"))
+    val serverThread2 = Thread(ServerRunnable2("ServerRunnable2"))
+    serverThread1.start()
+    serverThread2.start()
 }
 
-fun Application.module() {
+class ServerRunnable1(private val name: String) : Runnable {
+    override fun run() {
+        embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module1)
+            .start(wait = true)
+    }
+}
+
+class ServerRunnable2(private val name: String) : Runnable {
+    override fun run() {
+        embeddedServer(Netty, port = 3000, host = "127.0.0.1", module = Application::module2)
+            .start(wait = true)
+    }
+}
+
+fun Application.module1() {
     configureSerialization()
     configureSecurity()
-    configureRouting()
+    configureRoutingGet()
+}
+
+fun Application.module2() {
+    configureSerialization()
+    configureRoutingPost()
 }
