@@ -20,7 +20,7 @@ class DatabaseHandler {
         }
     }
 
-    private fun DateTimeServer() : String {
+    private fun DateTimeServer(): String {
         // change time zone to GMT+7
         val before = LocalDateTime.now()
         val newZoneId = ZoneId.of("Asia/Jakarta")
