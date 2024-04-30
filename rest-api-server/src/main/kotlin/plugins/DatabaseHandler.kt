@@ -8,6 +8,8 @@ import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.sql.Connection.*
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class DatabaseHandler {
     private fun createDatabase() {
@@ -18,12 +20,22 @@ class DatabaseHandler {
         }
     }
 
+    private fun DateTimeServer() : String {
+        // change time zone to GMT+7
+        val before = LocalDateTime.now()
+        val newZoneId = ZoneId.of("Asia/Jakarta")
+        val zonedDateTime = ZonedDateTime.of(before, newZoneId)
+        val now = zonedDateTime.toLocalDateTime()
+
+        return "${now.dayOfMonth}/${now.monthValue}/${now.year} (${now.hour}.${now.minute}.${now.second})"
+    }
+
     fun saveData(sensorID: Int = 1, value: Double): SensorDataModel? {
         createDatabase()
         var sensorData: SensorDataModel? = null
         var idPost: Int
-        val now = LocalDateTime.now()
-        val datetime = "${now.dayOfMonth}/${now.monthValue}/${now.year} (${now.hour}.${now.minute}.${now.second})"
+        val datetime = DateTimeServer()
+
         transaction {
             // insert new data/post data
             SensorData.insert {
@@ -84,8 +96,8 @@ class DatabaseHandler {
     fun updateData(id: Int, sensorID: Int, value: Double): SensorDataModel? {
         createDatabase()
         var sensorData: SensorDataModel? = null
-        val now = LocalDateTime.now()
-        val datetime = "${now.dayOfMonth}/${now.monthValue}/${now.year} (${now.hour}.${now.minute}.${now.second})"
+        val datetime = DateTimeServer()
+
         transaction {
             SensorData.update({ SensorData.id eq id }) {
                 it[SensorData.sensorID] = sensorID

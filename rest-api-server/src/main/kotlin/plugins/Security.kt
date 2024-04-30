@@ -8,7 +8,7 @@ fun Application.configureSecurity() {
     var user = System.getenv("USER")
     var password = System.getenv("PASSWORD")
     if(user == null || password == null) {
-        val dotenv = Dotenv.load()
+        val dotenv = Dotenv.configure().load()
         user = dotenv["USER"]
         password = dotenv["PASSWORD"]
     }

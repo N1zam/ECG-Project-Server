@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.ecgproject'
-version = '1.0.0'
+version = '1.0.1'
 
 // Java version 8
 java {
