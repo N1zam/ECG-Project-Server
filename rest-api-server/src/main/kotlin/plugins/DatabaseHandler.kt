@@ -10,6 +10,7 @@ import java.sql.Connection.*
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class DatabaseHandler {
     private fun createDatabase() {
@@ -22,12 +23,13 @@ class DatabaseHandler {
 
     private fun DateTimeServer(): String {
         // change time zone to GMT+7
-        val before = LocalDateTime.now()
-        val newZoneId = ZoneId.of("Asia/Jakarta")
-        val zonedDateTime = ZonedDateTime.of(before, newZoneId)
-        val now = zonedDateTime.toLocalDateTime()
+        val currentTime = LocalDateTime.now()
+        val gmtPlus7ZoneId = ZoneId.of("Asia/Jakarta")
+        val gmtPlus7DateTime = ZonedDateTime.of(currentTime, gmtPlus7ZoneId)
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy (HH.mm.ss)")
+        val formatterDate = gmtPlus7DateTime.format(formatter)
 
-        return "${now.dayOfMonth}/${now.monthValue}/${now.year} (${now.hour}.${now.minute}.${now.second})"
+        return formatterDate
     }
 
     fun saveData(sensorID: Int = 1, value: Double): SensorDataModel? {

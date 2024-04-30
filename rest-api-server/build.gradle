@@ -38,6 +38,7 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.34.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.cdimascio:dotenv-java:2.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.0")
 }
 
 test {
