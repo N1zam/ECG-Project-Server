@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: clientRestAPI
+Version: 0.1.0
+Summary: Library berisi get data dari rest api dan simpan data dalam bentuk file
+Author: basyair7
+Author-email: basyair.fathul@yahoo.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GPL-3.0 License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6

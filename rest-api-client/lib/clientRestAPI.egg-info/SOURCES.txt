@@ -1,0 +1,6 @@
+setup.py
+clientRestAPI/__init__.py
+clientRestAPI.egg-info/PKG-INFO
+clientRestAPI.egg-info/SOURCES.txt
+clientRestAPI.egg-info/dependency_links.txt
+clientRestAPI.egg-info/top_level.txt

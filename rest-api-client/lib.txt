@@ -2,3 +2,4 @@ requests
 python-dotenv
 datetime
 keyboard
+clientRestAPI-0.1.0-py3-none-any.whl
