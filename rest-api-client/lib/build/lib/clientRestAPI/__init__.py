@@ -10,6 +10,9 @@ class clientRestAPI:
     def getdata(this):
         return (this._fetch_data_from_api())
     
+    def deletedata(this):
+        return (this._delete_data_from_api())
+    
     def _fetch_data_from_api(this):
         try:
             res = requests.get(
@@ -19,6 +22,28 @@ class clientRestAPI:
             return data;
         except (requests.exceptions.RequestException, requests.ConnectTimeout) as e:
             print("Error: ", e);
+            return None;
+        
+    def _delete_data_from_api(this):
+        try:
+            res = requests.delete(
+                url=this.api_url, auth=HTTPBasicAuth(this.user, this.password)
+            );
+            status_code = res.status_code
+            if(status_code == 200):
+                content = res.text[:100]
+            else:
+                content = res.content.decode('utf-8')
+            
+            data = {
+                "status-code": status_code,
+                "content": content
+            }
+            
+            return data;
+        
+        except (requests.exceptions.RequestException, requests.ConnectTimeout) as e:
+            print("Error : ", e);
             return None;
 
 class File:
@@ -49,3 +74,4 @@ class File:
                 
         except Exception as e:
             print("Error: ", e);
+            

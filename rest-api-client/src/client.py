@@ -1,7 +1,6 @@
-import requests, os, keyboard, json
-from clientRestAPI import clientRestAPI, File
+import os, keyboard, json
+# from clientRestAPI import clientRestAPI, File
 from time import sleep
-from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv, dotenv_values
 
 def main():    
@@ -41,14 +40,29 @@ def test():
     data = File(filename).read();
     for i in data:
         print(i);
+        
+def test2():
+    user = os.getenv("USER");
+    password = os.getenv("PASSWORD");
+    url_api = os.getenv("URL");
+
+    if(user == None or password == None):
+        load_dotenv();
+        user = os.getenv("USER");
+        password = os.getenv("PASSWORD");
+        url_api = os.getenv("URL");
+        
+    data = clientRestAPI(f"{url_api}/sensor/sensorid/4", user, password)
+    content = data.deletedata()['content']
+    print(content)
     
 if (__name__ == "__main__"):
     os.system("cls") if (os.name == "nt") else os.system("clear");
     # main();
-    # test();
+    test2();
     
-    while(True):
-        if(keyboard.is_pressed('q')): break;
-        main();
-        sleep(1);
+    # while(True):
+    #     if(keyboard.is_pressed('q')): break;
+    #     main();
+    #     sleep(1);
         
