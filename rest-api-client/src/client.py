@@ -1,5 +1,5 @@
 import os, keyboard, json
-# from clientRestAPI import clientRestAPI, File
+from clientRestAPI import clientRestAPI, File
 from time import sleep
 from dotenv import load_dotenv, dotenv_values
 
@@ -53,8 +53,11 @@ def test2():
         url_api = os.getenv("URL");
         
     data = clientRestAPI(f"{url_api}/sensor/sensorid/4", user, password)
+    status_code = data.deletedata()['status-code']
     content = data.deletedata()['content']
     print(content)
+    print("\nstatus code : ", status_code)
+    
     
 if (__name__ == "__main__"):
     os.system("cls") if (os.name == "nt") else os.system("clear");
