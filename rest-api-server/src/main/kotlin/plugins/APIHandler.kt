@@ -98,7 +98,7 @@ class APIHandler(private val dbHandler: DatabaseHandler) {
         }
     }
 
-    suspend fun getDataBySensorID(call: ApplicationCall) {
+    suspend fun getDataBySensorId(call: ApplicationCall) {
         try {
             val sensorId = call.parameters["sensorid"]?.toIntOrNull()
             sensorId?.let {

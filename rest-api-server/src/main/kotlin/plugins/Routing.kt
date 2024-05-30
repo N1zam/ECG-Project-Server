@@ -20,7 +20,7 @@ fun Application.configureRoutingGet() {
                 apiHandler.getDataById(call)
             }
             get("/sensor/sensorid/{sensorid}"){
-                apiHandler.getDataBySensorID(call)
+                apiHandler.getDataBySensorId(call)
             }
             delete("/sensor/id/{id}") {
                 apiHandler.deleteDataById(call)

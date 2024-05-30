@@ -49,9 +49,9 @@ class DatabaseHandler {
             // see result data if success post
             idPost = SensorData.select {
                 SensorData.value eq value and (SensorData.sensorID eq sensorID)
-            }.single()[SensorData.id]
+            }.last()[SensorData.id]
 
-            val result = SensorData.select { SensorData.id eq idPost }.singleOrNull()
+            val result = SensorData.select { SensorData.id eq idPost }.lastOrNull()
             result?.let {
                 sensorData = SensorDataModel.fromResultRow(result)
             }
@@ -108,7 +108,7 @@ class DatabaseHandler {
             }
 
             // see result data if success post
-            val result = SensorData.select { SensorData.id eq id }.singleOrNull()
+            val result = SensorData.select { SensorData.id eq id }.lastOrNull()
             result?.let {
                 sensorData = SensorDataModel.fromResultRow(result)
             }

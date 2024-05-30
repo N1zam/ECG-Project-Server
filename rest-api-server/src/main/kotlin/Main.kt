@@ -12,14 +12,14 @@ fun main() {
     serverThread2.start()
 }
 
-class ServerRunnable1(private val name: String) : Runnable {
+class ServerRunnable1(private val name: String): Runnable {
     override fun run() {
         embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module1)
             .start(wait = true)
     }
 }
 
-class ServerRunnable2(private val name: String) : Runnable {
+class ServerRunnable2(private val name: String): Runnable {
     override fun run() {
         embeddedServer(Netty, port = 3000, host = "127.0.0.1", module = Application::module2)
             .start(wait = true)
