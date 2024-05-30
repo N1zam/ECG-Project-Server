@@ -51,7 +51,7 @@ class DatabaseHandler {
                 SensorData.value eq value and (SensorData.sensorID eq sensorID)
             }.last()[SensorData.id]
 
-            val result = SensorData.select { SensorData.id eq idPost }.lastOrNull()
+            val result = SensorData.select { SensorData.id eq idPost }.singleOrNull()
             result?.let {
                 sensorData = SensorDataModel.fromResultRow(result)
             }
