@@ -52,7 +52,7 @@ jar {
     duplicatesStrategy = 'exclude'
 
     manifest {
-        attributes 'Main-Class': 'org.ecgproject.MainKt'
+        attributes 'Main-Class': 'org.ecgproject.MainServer'
     }
 
     from {
