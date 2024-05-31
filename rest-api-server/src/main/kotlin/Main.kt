@@ -4,7 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
-private class MainServer {
+class MainServer {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
