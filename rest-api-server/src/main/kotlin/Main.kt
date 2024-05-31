@@ -6,14 +6,15 @@ import io.ktor.server.netty.*
 import org.ecgproject.plugins.*
 
 fun main() {
-    val serverThread1 = Thread(ServerRunnable1("ServerRunnable1"))
-    val serverThread2 = Thread(ServerRunnable2("ServerRunnable2"))
+    val serverThread1 = Thread(ServerRunnable1("Server Rest API 1"))
+    val serverThread2 = Thread(ServerRunnable2("Server Rest API 2"))
     serverThread1.start()
     serverThread2.start()
 }
 
 class ServerRunnable1(private val name: String): Runnable {
     override fun run() {
+        println(name + ": RUNNING...")
         embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module1)
             .start(wait = true)
     }
@@ -21,6 +22,7 @@ class ServerRunnable1(private val name: String): Runnable {
 
 class ServerRunnable2(private val name: String): Runnable {
     override fun run() {
+        println(name + ": RUNNING...")
         embeddedServer(Netty, port = 3000, host = "127.0.0.1", module = Application::module2)
             .start(wait = true)
     }
