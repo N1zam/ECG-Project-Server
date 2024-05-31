@@ -4,6 +4,19 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
+private class ServerRunnable(
+    private val name: String,
+    private val host: String,
+    private val port: Int,
+    private val moduleFunction: Application.() -> Unit
+): Runnable {
+    override fun run() {
+        println("$name: RUNNING...")
+        embeddedServer(Netty, port = port, host = host, module = moduleFunction)
+            .start(wait = true)
+    }
+}
+
 class MainServer {
     companion object {
         @JvmStatic
@@ -30,18 +43,5 @@ class MainServer {
             serverThread1.start()
             serverThread2.start()
         }
-    }
-}
-
-private class ServerRunnable(
-    private val name: String,
-    private val host: String,
-    private val port: Int,
-    private val moduleFunction: Application.() -> Unit
-): Runnable {
-    override fun run() {
-        println("$name: RUNNING...")
-        embeddedServer(Netty, port = port, host = host, module = moduleFunction)
-            .start(wait = true)
     }
 }
