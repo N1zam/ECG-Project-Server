@@ -3,38 +3,45 @@ package org.ecgproject
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import org.ecgproject.plugins.*
 
-fun main() {
-    val serverThread1 = Thread(ServerRunnable1("Server Rest API 1"))
-    val serverThread2 = Thread(ServerRunnable2("Server Rest API 2"))
-    serverThread1.start()
-    serverThread2.start()
-}
+private class MainServer {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val serverThread1 = Thread(
+                ServerRunnable(
+                    "Server Rest API 1",
+                    "127.0.0.1",
+                    8080,
+                    Application::moduleServer1
+                )
+            )
 
-class ServerRunnable1(private val name: String): Runnable {
-    override fun run() {
-        println(name + ": RUNNING...")
-        embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module1)
-            .start(wait = true)
+            val serverThread2 = Thread(
+                ServerRunnable(
+                    "Server Rest API 2",
+                    "127.0.0.1",
+                    3000,
+                    Application::moduleServer2
+                )
+            )
+
+            // Running Thread
+            serverThread1.start()
+            serverThread2.start()
+        }
     }
 }
 
-class ServerRunnable2(private val name: String): Runnable {
+private class ServerRunnable(
+    private val name: String,
+    private val host: String,
+    private val port: Int,
+    private val moduleFunction: Application.() -> Unit
+): Runnable {
     override fun run() {
-        println(name + ": RUNNING...")
-        embeddedServer(Netty, port = 3000, host = "127.0.0.1", module = Application::module2)
+        println("$name: RUNNING...")
+        embeddedServer(Netty, port = port, host = host, module = moduleFunction)
             .start(wait = true)
     }
-}
-
-fun Application.module1() {
-    configureSerialization()
-    configureSecurity()
-    configureRoutingGet()
-}
-
-fun Application.module2() {
-    configureSerialization()
-    configureRoutingPost()
 }
