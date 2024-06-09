@@ -6,7 +6,7 @@
 
 ## Isi Repository :
 - Rest-API-Server (Kotlin *in progress)
-- Rest-API-Client (Python *on going)
+- Rest-API-Client (Python *in progress)
 
 # Programmer :
 - <a href="https://github.com/basyair7">Fathul Basyair (Basyair7)</a>
